@@ -42,7 +42,6 @@ dependencies {
     implementation 'org.apache.ftpserver:ftpserver-core:1.2.0'
     implementation 'com.jcraft:jsch:0.1.55'
     implementation 'com.dropbox.core:dropbox-core-sdk:5.4.5'
-    implementation 'com.google.apis:google-api-services-drive:v3-rev20231123-2.0.0'
     implementation 'com.microsoft.graph:microsoft-graph:5.71.0'
     implementation 'com.github.bumptech.glide:glide:4.16.0'
     implementation 'com.googlecode.mp4parser:isoparser:1.1.22'
