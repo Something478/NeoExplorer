@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,9 +48,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun listFiles() {
-        val root = Environment.getExternalStorageDirectory()
-        val items = root.list() ?: emptyArray()
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
-        listView.adapter = adapter
+        try {
+            // USE THE PUBLIC DIRECTORIES INSTEAD - WORKS ON ANDROID 11+
+            val root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            val items = root.list() ?: emptyArray()
+            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
+            listView.adapter = adapter
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error accessing files: ${e.message}", Toast.LENGTH_LONG).show()
+        }
     }
 }
