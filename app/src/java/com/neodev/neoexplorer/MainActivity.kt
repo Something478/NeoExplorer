@@ -17,30 +17,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
         
-        try {
-            setContentView(R.layout.activity_main)
-            listView = findViewById(R.id.listView)
+        listView = findViewById(R.id.listView)
 
-            if (Environment.isExternalStorageManager()) {
-                listFiles()
-            } else {
-                requestAllFilesAccess()
-            }
-        } catch (e: Exception) {
-            Toast.makeText(this, "App crashed: ${e.message}", Toast.LENGTH_LONG).show()
-            finish()
+        if (Environment.isExternalStorageManager()) {
+            listFiles()
+        } else {
+            requestAllFilesAccess()
         }
     }
 
     private fun requestAllFilesAccess() {
-        try {
-            val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-            intent.data = Uri.parse("package:$packageName")
-            startActivityForResult(intent, REQUEST_CODE)
-        } catch (e: Exception) {
-            Toast.makeText(this, "Cannot request permission", Toast.LENGTH_LONG).show()
-        }
+        val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+        intent.data = Uri.parse("package:${applicationContext.packageName}")
+        startActivityForResult(intent, REQUEST_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -49,21 +40,30 @@ class MainActivity : AppCompatActivity() {
             if (Environment.isExternalStorageManager()) {
                 listFiles()
             } else {
-                Toast.makeText(this, "Permission denied!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Permission denied! App cannot work.", Toast.LENGTH_LONG).show()
                 finish()
             }
         }
     }
 
     private fun listFiles() {
-        try {
-            // SAFE way to get root directory
-            val root = getExternalFilesDir(null)?.parentFile ?: return
-            val items = root.list() ?: emptyArray()
-            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
-            listView.adapter = adapter
-        } catch (e: Exception) {
-            Toast.makeText(this, "Cannot read files", Toast.LENGTH_LONG).show()
+        val publicDirs = arrayOf(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC),
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
+        )
+        
+        val items = mutableListOf<String>()
+        for (dir in publicDirs) {
+            if (dir.exists() && dir.isDirectory) {
+                items.add("[${dir.name}]")
+                dir.list()?.forEach { file -> items.add("  $file") }
+            }
         }
+        
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
+        listView.adapter = adapter
     }
 }
