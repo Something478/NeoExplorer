@@ -13,15 +13,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # This action sets up Gradle properly
+      # Use the NEW setup-gradle action (non-deprecated)
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@v3
 
-      # Now use ./gradlew with the correct path
+      # Build using Gradle directly (no wrapper needed)
       - name: Build with Gradle
         run: |
           cd app
-          ./gradlew assembleDebug
+          gradle assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
