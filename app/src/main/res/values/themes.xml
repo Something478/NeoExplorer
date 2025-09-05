@@ -1,5 +1,5 @@
 <resources>
-    <style name="Theme.NeoExplorer" parent="Theme.Material3.DayNight.DarkActionBar">
+    <style name="Theme.NeoExplorer" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">#FF6200EE</item>
         <item name="colorPrimaryDark">#FF3700B3</item>
         <item name="colorAccent">#FFBB86FC</item>
