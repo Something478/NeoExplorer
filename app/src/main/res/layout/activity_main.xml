@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- A toolbar at the top -->
     <TextView
         android:id="@+id/titleText"
         android:layout_width="match_parent"
@@ -15,15 +14,14 @@
         android:gravity="center"
         android:padding="16dp"
         android:background="@android:color/black"
-        android:textColor="#FF6200EE" /> <!-- Purple text -->
+        android:textColor="#FF6200EE" />
 
-    <!-- The list that will show files and folders -->
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/black"
-        android:divider="#FF3700B3" <!-- Purple divider -->
+        android:divider="#FF3700B3"
         android:dividerHeight="1dp" />
 
 </LinearLayout>
