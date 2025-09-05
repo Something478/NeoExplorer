@@ -13,11 +13,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      # This uses the system's Gradle instead of your missing wrapper
       - name: Build with Gradle
         run: |
           cd app
-          chmod +x ./gradlew
-          ./gradlew assembleDebug
+          gradle assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
