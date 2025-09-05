@@ -13,7 +13,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build with Gradle
+      # Use system Gradle directly - NO WRAPPER NEEDED
+      - name: Build with System Gradle
         run: |
           cd app
           gradle assembleDebug --no-daemon
