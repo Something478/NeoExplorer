@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.neodev.neoexplorer">
+
+    <!-- Permission to read from external storage (like SD card or internal storage) -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- Permission to write to external storage (for editing files) -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- Recommended for modern file access, especially on Android 10+ -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <!-- Optional: Permission to request install packages if you add APK installation features later -->
+    <!-- <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> -->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher" <!-- You will need to create this icon -->
+        android:label="@string/app_name"   <!-- Defined in res/values/strings.xml -->
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.NeoExplorer"> <!-- This is where you define your black/purple theme -->
+
+        <!--
+            The MAIN Activity - This is the entry point of your app.
+            The LAUNCHER category means it appears in the app list.
+        -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- This intent filter allows your app to open text files when clicked in other file managers -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:mimeType="text/plain" />
+                <data android:mimeType="text/x-lua" /> <!-- Specifically for Lua files -->
+            </intent-filter>
+
+            <!-- This intent filter allows your app to be offered as a file manager -->
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
+
+        <!--
+            This activity will be used to edit text files (Lua, txt, etc.)
+            We separate it from the main file browser for cleaner code.
+        -->
+        <activity
+            android:name=".TextEditorActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!--
+            This service could be used for background operations,
+            like searching for files or copying large amounts of data.
+            (Optional for now, but good to declare early)
+        -->
+        <service
+            android:name=".FileService"
+            android:exported="false" />
+
+    </application>
+
+</manifest>
