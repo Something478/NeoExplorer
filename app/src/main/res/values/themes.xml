@@ -1,8 +1,4 @@
 <resources>
-    <style name="Theme.NeoExplorer" parent="Theme.AppCompat.DayNight">
-        <item name="colorPrimary">#FF6200EE</item>
-        <item name="colorPrimaryDark">#FF3700B3</item>
-        <item name="colorAccent">#FFBB86FC</item>
-        <item name="android:windowBackground">@android:color/black</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
     </style>
 </resources>
