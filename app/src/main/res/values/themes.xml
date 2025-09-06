@@ -1,4 +1,7 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="Theme.NeoExplorer" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorPrimary">#6200EE</item>
+        <item name="colorPrimaryVariant">#3700B3</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
     </style>
 </resources>
